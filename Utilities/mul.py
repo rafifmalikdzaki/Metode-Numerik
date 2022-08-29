@@ -1,6 +1,8 @@
 
 import math
 import numpy as np
+import time
+import timeit
 
 
 def size_base10(x):
@@ -28,7 +30,9 @@ def karatsuba(x, y):
     
     return (z2 * 10 ** (2 * m2)) + (z1 * 10 ** m2) + z0
 
-def toomCook(m, n):
+def toomCook(m, n): #still flawed the multiplication process isnt always right
+    if(m < 10 or n < 10):
+        return m * n
     b = 16384 #large multiple of 2
     i = max(int(math.log(b, m))//3, int(math.log(b, n)) // 3)
     B = b ** i
@@ -64,9 +68,27 @@ def toomCook(m, n):
         res = res*B + R[x]
     return  int(res / 2)
 
-print(toomCook(12_3456_7890_1234_5678_9012, 9_8765_4321_9876_5432_1098))
-print(toomCook(12345, 6789))
-print(karatsuba(12345, 6789))
+# print(toomCook(12_3456_7890_1234_5678_9012, 9_8765_4321_9876_5432_1098))
+# print(toomCook(12345, 6789))
+
+count1 = 0;
+count2 = 0;
+
+for i in range(10001):
+    start = timeit.default_timer()
+    karatsuba(12_3456_7890_1234_5678_9012_1234_2112_4324_2131_534, 9_8765_4321_9876_5432_1098)
+    end = timeit.default_timer()
+    count1 += end-start
+
+for i in range(10001):
+    s = timeit.default_timer()
+    t = 12_3456_7890_1234_5678_9012_1234_2112_4324_2131_534 * 9_8765_4321_9876_5432_1098
+    l = timeit.default_timer()
+    count2 += l - s
+    
+print(count1 / 10000)
+print(count2 / 10000)
+
 
 
 
