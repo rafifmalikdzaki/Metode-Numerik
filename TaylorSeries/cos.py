@@ -5,7 +5,6 @@ import math
 def fac(x):
     if x < 2:
         return x
-
     return x * fac(x-1)
 
 
@@ -29,5 +28,4 @@ def cos(x, e=0.001):
     galatSebenarnya = (jumlah - math.cos(5)) / math.cos(5)
     return iterasi, galatSebenarnya, galatAprox, jumlah
 
-
-print(cos(5))
+print(cos(5*math.pi/180, e = 0.0000000001))
